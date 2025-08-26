@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Daos -->
+    <bean id="userDao" class="alex.valker91.test_learning.dao.impl.InMemoryUserDao">
+<!--        <constructor-arg ref="inMemoryStorage"/>-->
+    </bean>
+    <bean id="eventDao" class="alex.valker91.test_learning.dao.impl.InMemoryEventDao">
+<!--        <constructor-arg ref="inMemoryStorage"/>-->
+    </bean>
+    <bean id="ticketDao" class="alex.valker91.test_learning.dao.impl.InMemoryTicketDao">
+<!--        <constructor-arg ref="inMemoryStorage"/>-->
+    </bean>
+
+    <!-- Services -->
+    <bean id="userService" class="alex.valker91.test_learning.service.impl.UserServiceImpl">
+        <constructor-arg ref="userDao"/>
+    </bean>
+    <bean id="eventService" class="alex.valker91.test_learning.service.impl.EventServiceImpl">
+        <constructor-arg ref="eventDao"/>
+    </bean>
+    <bean id="ticketService" class="alex.valker91.test_learning.service.impl.TicketServiceImpl">
+        <constructor-arg ref="ticketDao"/>
+    </bean>
+
+    <!-- Facade -->
+    <bean id="bookingFacade" class="alex.valker91.test_learning.facade.impl.BookingFacadeImpl">
+        <constructor-arg ref="userService"/>
+        <constructor-arg ref="eventService"/>
+        <constructor-arg ref="ticketService"/>
+    </bean>
+</beans>

@@ -17,7 +17,7 @@ public interface BookingFacade {
      * Gets event by its id.
      * @return Event.
      */
-    Event getEventById();
+    Event getEventById(long eventId);
 
     /**
      * Get list of events by matching title. Title is matched using 'contains' approach.
@@ -64,7 +64,7 @@ public interface BookingFacade {
      * Gets user by its id.
      * @return User.
      */
-    User getUserById();
+    User getUserById(long userId);
 
     /**
      * Gets user by its email. Email is strictly matched.
