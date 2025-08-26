@@ -6,42 +6,69 @@ import alex.valker91.test_learning.model.User;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class InMemoryUserDao implements UserDao {
 
     private static final String NAME_SPACE = "user";
     private final Map<String, User> storage = new HashMap<>();
+    private long userIdCounter = 0;
 
     public InMemoryUserDao() {
     }
 
     @Override
     public User getUserById(long userId) {
-        return null;
+        String key = NAME_SPACE + ":" + userId;
+        return storage.get(key);
     }
 
     @Override
     public User getUserByEmail(String email) {
-        return null;
+        return storage.values().stream()
+                .filter(user -> user.getEmail().equals(email))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public List<User> getUsersByName(String name, int pageSize, int pageNum) {
-        return List.of();
+        List<User> matchingUsers = storage.values().stream()
+                .filter(user -> user.getName().contains(name))
+                .collect(Collectors.toList());
+
+        int fromIndex = (pageNum - 1) * pageSize;
+        int toIndex = Math.min(fromIndex + pageSize, matchingUsers.size());
+
+        return fromIndex >= matchingUsers.size() ? List.of() : matchingUsers.subList(fromIndex, toIndex);
     }
 
     @Override
     public User createUser(User user) {
-        return null;
+        user.setId(++userIdCounter);
+
+        String key = NAME_SPACE + ":" + user.getId();
+        storage.put(key, user);
+
+        return user;
     }
 
     @Override
     public User updateUser(User user) {
-        return null;
+        String key = NAME_SPACE + ":" + user.getId();
+
+        storage.put(key, user);
+        return user;
     }
 
     @Override
     public boolean deleteUser(long userId) {
-        return false;
+        String key = NAME_SPACE + ":" + userId;
+        if (storage.containsKey(key)) {
+            storage.remove(key);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

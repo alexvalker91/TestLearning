@@ -20,5 +20,4 @@ public interface Ticket {
     void setCategory(Category category);
     int getPlace();
     void setPlace(int place);
-
 }
