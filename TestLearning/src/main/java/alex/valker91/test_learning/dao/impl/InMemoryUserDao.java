@@ -3,9 +3,17 @@ package alex.valker91.test_learning.dao.impl;
 import alex.valker91.test_learning.dao.UserDao;
 import alex.valker91.test_learning.model.User;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class InMemoryUserDao implements UserDao {
+
+    private static final String NAME_SPACE = "user";
+    private final Map<String, User> storage = new HashMap<>();
+
+    public InMemoryUserDao() {
+    }
 
     @Override
     public User getUserById(long userId) {
