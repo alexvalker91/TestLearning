@@ -4,6 +4,8 @@ import alex.valker91.test_learning.dao.EventDao;
 import alex.valker91.test_learning.dao.TicketDao;
 import alex.valker91.test_learning.model.Event;
 import alex.valker91.test_learning.service.EventService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Date;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.List;
 public class EventServiceImpl implements EventService {
 
     private EventDao eventDao;
+    private static final Logger log = LoggerFactory.getLogger(EventServiceImpl.class);
 
     public EventServiceImpl() {}
 
@@ -20,7 +23,9 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Event getEventById(long id) {
-        return eventDao.getEventById(id);
+        Event event = eventDao.getEventById(id);
+        log.debug("getEventById: id={}", id);
+        return event;
     }
 
     @Override

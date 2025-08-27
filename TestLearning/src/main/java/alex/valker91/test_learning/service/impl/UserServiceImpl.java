@@ -3,12 +3,15 @@ package alex.valker91.test_learning.service.impl;
 import alex.valker91.test_learning.dao.UserDao;
 import alex.valker91.test_learning.model.User;
 import alex.valker91.test_learning.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
     private UserDao userDao;
+    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
     public UserServiceImpl() {}
 
@@ -18,7 +21,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(long id) {
-        return userDao.getUserById(id);
+        User user = userDao.getUserById(id);
+        log.debug("getUserById: id={}", id);
+        return user;
     }
 
     @Override

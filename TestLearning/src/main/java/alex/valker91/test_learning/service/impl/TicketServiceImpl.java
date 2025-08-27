@@ -6,12 +6,15 @@ import alex.valker91.test_learning.model.Event;
 import alex.valker91.test_learning.model.Ticket;
 import alex.valker91.test_learning.model.User;
 import alex.valker91.test_learning.service.TicketService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class TicketServiceImpl implements TicketService {
 
     private TicketDao ticketDao;
+    private static final Logger log = LoggerFactory.getLogger(TicketServiceImpl.class);
 
     public TicketServiceImpl() {}
 
@@ -21,7 +24,9 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public Ticket bookTicket(long userId, long eventId, int place, Ticket.Category category) {
-        return ticketDao.bookTicket(userId, eventId, place, category);
+        Ticket booked = ticketDao.bookTicket(userId, eventId, place, category);
+        log.info("bookTicket: id={}, userId={}, eventId={}, place={}, category={}", booked.getId(), userId, eventId, place, category);
+        return booked;
     }
 
     @Override
