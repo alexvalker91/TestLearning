@@ -1,8 +1,12 @@
 package alex.valker91.test_learning.model;
 
+import alex.valker91.test_learning.model.impl.UserImpl;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * Created by maksym_govorischev on 14/03/14.
  */
+@JsonDeserialize(as = UserImpl.class)
 public interface User {
     /**
      * User Id. UNIQUE.

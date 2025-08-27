@@ -11,8 +11,8 @@ public class MyApplication {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
         BookingFacade bookingFacade = context.getBean("bookingFacade", BookingFacade.class);
-        Event event = bookingFacade.getEventById(1);
         System.out.println("Hello World");
-        System.out.println(event);
+        System.out.println(bookingFacade.getUserById(1).getEmail());
+        System.out.println(bookingFacade.getEventById(1).getDate());
     }
 }

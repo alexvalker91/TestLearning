@@ -1,0 +1,11 @@
+{
+  "tickets": [
+    {
+      "id": 1,
+      "eventId": 1,
+      "userId": 1,
+      "category": "PREMIUM",
+      "place": 42
+    }
+  ]
+}
