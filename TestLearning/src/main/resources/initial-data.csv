@@ -1,0 +1,9 @@
+# type,id,...
+# user: user,<id>,<name>,<email>
+# event: event,<id>,<title>,<epochMillis>
+# ticket: ticket,<id>,<eventId>,<userId>,<Category>,<place>
+user,1,John Doe,john@example.com
+user,2,Jane Roe,jane@example.com
+event,1,Sample Event,1704067200000
+
+ticket,1,1,1,PREMIUM,42

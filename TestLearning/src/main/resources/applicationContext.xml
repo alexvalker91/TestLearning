@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- External properties: classpath default and optional external file via -Dexternal.properties=/path/to/app.properties -->
+    <context:property-placeholder location="classpath:app.properties, file:${external.properties}"
+                                  ignore-unresolvable="true"
+                                  ignore-resource-not-found="true"/>
 
     <!-- Storage -->
     <bean id="inMemoryStorage" class="alex.valker91.test_learning.storage.InMemoryStorage"/>
+
+    <!-- Storage initializer using BeanPostProcessor -->
+    <bean id="storageInitializerPostProcessor" class="alex.valker91.test_learning.storage.StorageInitializerPostProcessor">
+        <property name="dataFile" value="${storage.data.file}"/>
+    </bean>
 
     <!-- Daos -->
     <bean id="userDao" class="alex.valker91.test_learning.dao.impl.InMemoryUserDao">
