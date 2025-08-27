@@ -2,11 +2,11 @@ package alex.valker91.test_learning.dao.impl;
 
 import alex.valker91.test_learning.dao.EventDao;
 import alex.valker91.test_learning.model.Event;
+import alex.valker91.test_learning.storage.InMemoryStorage;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -14,9 +14,10 @@ import java.util.stream.Collectors;
 public class InMemoryEventDao implements EventDao {
 
     private static final String NAME_SPACE = "user";
-    private final Map<String, Event> storage = new HashMap<>();
+    private final Map<String, Event> storage;
 
-    public InMemoryEventDao() {
+    public InMemoryEventDao(InMemoryStorage storage) {
+        this.storage = storage.getEventStorage();
     }
 
     @Override

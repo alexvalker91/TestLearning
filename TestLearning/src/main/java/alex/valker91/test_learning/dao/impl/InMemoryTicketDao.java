@@ -5,8 +5,8 @@ import alex.valker91.test_learning.model.Event;
 import alex.valker91.test_learning.model.Ticket;
 import alex.valker91.test_learning.model.User;
 import alex.valker91.test_learning.model.impl.TicketImpl;
+import alex.valker91.test_learning.storage.InMemoryStorage;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -14,10 +14,11 @@ import java.util.stream.Collectors;
 public class InMemoryTicketDao implements TicketDao {
 
     private static final String NAME_SPACE = "ticket";
-    private final Map<String, Ticket> storage = new HashMap<>();
+    private final Map<String, Ticket> storage;
     private long ticketIdCounter = 0;
 
-    public InMemoryTicketDao() {
+    public InMemoryTicketDao(InMemoryStorage storage) {
+        this.storage = storage.getTicketStorage();
     }
 
     @Override

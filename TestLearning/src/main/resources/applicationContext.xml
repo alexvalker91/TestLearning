@@ -4,15 +4,18 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!-- Storage -->
+    <bean id="inMemoryStorage" class="alex.valker91.test_learning.storage.InMemoryStorage"/>
+
     <!-- Daos -->
     <bean id="userDao" class="alex.valker91.test_learning.dao.impl.InMemoryUserDao">
-<!--        <constructor-arg ref="inMemoryStorage"/>-->
+        <constructor-arg ref="inMemoryStorage"/>
     </bean>
     <bean id="eventDao" class="alex.valker91.test_learning.dao.impl.InMemoryEventDao">
-<!--        <constructor-arg ref="inMemoryStorage"/>-->
+        <constructor-arg ref="inMemoryStorage"/>
     </bean>
     <bean id="ticketDao" class="alex.valker91.test_learning.dao.impl.InMemoryTicketDao">
-<!--        <constructor-arg ref="inMemoryStorage"/>-->
+        <constructor-arg ref="inMemoryStorage"/>
     </bean>
 
     <!-- Services -->

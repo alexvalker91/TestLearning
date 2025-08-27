@@ -2,8 +2,8 @@ package alex.valker91.test_learning.dao.impl;
 
 import alex.valker91.test_learning.dao.UserDao;
 import alex.valker91.test_learning.model.User;
+import alex.valker91.test_learning.storage.InMemoryStorage;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -11,10 +11,11 @@ import java.util.stream.Collectors;
 public class InMemoryUserDao implements UserDao {
 
     private static final String NAME_SPACE = "user";
-    private final Map<String, User> storage = new HashMap<>();
+    private final Map<String, User> storage;
     private long userIdCounter = 0;
 
-    public InMemoryUserDao() {
+    public InMemoryUserDao(InMemoryStorage storage) {
+        this.storage = storage.getUserStorage();
     }
 
     @Override
