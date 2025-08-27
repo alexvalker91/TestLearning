@@ -1,6 +1,7 @@
 package alex.valker91.test_learning.service.impl;
 
 import alex.valker91.test_learning.dao.EventDao;
+import alex.valker91.test_learning.dao.TicketDao;
 import alex.valker91.test_learning.model.Event;
 import alex.valker91.test_learning.service.EventService;
 
@@ -9,9 +10,11 @@ import java.util.List;
 
 public class EventServiceImpl implements EventService {
 
-    private final EventDao eventDao;
+    private EventDao eventDao;
 
-    public EventServiceImpl(EventDao eventDao) {
+    public EventServiceImpl() {}
+
+    public void setEventDao(EventDao eventDao) {
         this.eventDao = eventDao;
     }
 

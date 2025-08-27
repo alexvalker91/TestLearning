@@ -1,6 +1,7 @@
 package alex.valker91.test_learning.service.impl;
 
 import alex.valker91.test_learning.dao.TicketDao;
+import alex.valker91.test_learning.dao.UserDao;
 import alex.valker91.test_learning.model.Event;
 import alex.valker91.test_learning.model.Ticket;
 import alex.valker91.test_learning.model.User;
@@ -10,10 +11,12 @@ import java.util.List;
 
 public class TicketServiceImpl implements TicketService {
 
-    private final TicketDao ticketDao;
+    private TicketDao ticketDao;
 
-    public TicketServiceImpl(TicketDao TicketDao) {
-        this.ticketDao = TicketDao;
+    public TicketServiceImpl() {}
+
+    public void setTicketDao(TicketDao ticketDao) {
+        this.ticketDao = ticketDao;
     }
 
     @Override

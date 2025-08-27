@@ -2,7 +2,6 @@ package alex.valker91.test_learning;
 
 
 import alex.valker91.test_learning.facade.BookingFacade;
-import alex.valker91.test_learning.model.Event;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

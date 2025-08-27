@@ -29,14 +29,11 @@
     </bean>
 
     <!-- Services -->
-    <bean id="userService" class="alex.valker91.test_learning.service.impl.UserServiceImpl">
-        <constructor-arg ref="userDao"/>
+    <bean id="userService" class="alex.valker91.test_learning.service.impl.UserServiceImpl" autowire="byType">
     </bean>
-    <bean id="eventService" class="alex.valker91.test_learning.service.impl.EventServiceImpl">
-        <constructor-arg ref="eventDao"/>
+    <bean id="eventService" class="alex.valker91.test_learning.service.impl.EventServiceImpl" autowire="byType">
     </bean>
-    <bean id="ticketService" class="alex.valker91.test_learning.service.impl.TicketServiceImpl">
-        <constructor-arg ref="ticketDao"/>
+    <bean id="ticketService" class="alex.valker91.test_learning.service.impl.TicketServiceImpl" autowire="byType">
     </bean>
 
     <!-- Facade -->
