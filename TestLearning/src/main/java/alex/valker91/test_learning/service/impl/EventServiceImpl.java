@@ -9,9 +9,11 @@ import java.util.List;
 
 public class EventServiceImpl implements EventService {
 
-    private final EventDao eventDao;
+    private EventDao eventDao;
 
-    public EventServiceImpl(EventDao eventDao) {
+    public EventServiceImpl() {}
+
+    public void setEventDao(EventDao eventDao) {
         this.eventDao = eventDao;
     }
 

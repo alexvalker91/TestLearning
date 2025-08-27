@@ -14,9 +14,11 @@ import java.util.stream.Collectors;
 public class InMemoryEventDao implements EventDao {
 
     private static final String NAME_SPACE = "event";
-    private final Map<String, Event> storage;
+    private Map<String, Event> storage;
 
-    public InMemoryEventDao(InMemoryStorage storage) {
+    public InMemoryEventDao() {}
+
+    public void setInMemoryStorage(InMemoryStorage storage) {
         this.storage = storage.getEventStorage();
     }
 

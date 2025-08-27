@@ -11,10 +11,12 @@ import java.util.stream.Collectors;
 public class InMemoryUserDao implements UserDao {
 
     private static final String NAME_SPACE = "user";
-    private final Map<String, User> storage;
+    private Map<String, User> storage;
     private long userIdCounter = 0;
 
-    public InMemoryUserDao(InMemoryStorage storage) {
+    public InMemoryUserDao() {}
+
+    public void setInMemoryStorage(InMemoryStorage storage) {
         this.storage = storage.getUserStorage();
     }
 

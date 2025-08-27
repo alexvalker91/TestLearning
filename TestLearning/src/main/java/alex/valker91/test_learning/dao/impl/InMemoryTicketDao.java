@@ -14,10 +14,12 @@ import java.util.stream.Collectors;
 public class InMemoryTicketDao implements TicketDao {
 
     private static final String NAME_SPACE = "ticket";
-    private final Map<String, Ticket> storage;
+    private Map<String, Ticket> storage;
     private long ticketIdCounter = 0;
 
-    public InMemoryTicketDao(InMemoryStorage storage) {
+    public InMemoryTicketDao() {}
+
+    public void setInMemoryStorage(InMemoryStorage storage) {
         this.storage = storage.getTicketStorage();
     }
 
