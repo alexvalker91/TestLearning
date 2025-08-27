@@ -1,0 +1,12 @@
+{
+  "users": [
+    {"id": 1, "name": "John Doe", "email": "john@example.com"},
+    {"id": 2, "name": "Jane Roe", "email": "jane@example.com"}
+  ],
+  "events": [
+    {"id": 1, "title": "Sample Event", "date": 1704067200000}
+  ],
+  "tickets": [
+    {"id": 1, "eventId": 1, "userId": 1, "category": "PREMIUM", "place": 42}
+  ]
+}
