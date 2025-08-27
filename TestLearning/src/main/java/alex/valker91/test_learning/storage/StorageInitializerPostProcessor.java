@@ -12,10 +12,13 @@ import org.springframework.core.io.Resource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class StorageInitializerPostProcessor implements BeanPostProcessor {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
+    private static final Logger log = LoggerFactory.getLogger(StorageInitializerPostProcessor.class);
 
     private Resource usersDataFile;
     private Resource eventsDataFile;
@@ -41,7 +44,10 @@ public class StorageInitializerPostProcessor implements BeanPostProcessor {
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) {
         if (bean instanceof InMemoryStorage storage) {
+            log.info("Initializing InMemoryStorage from files: users='{}', events='{}', tickets='{}'", usersDataFile, eventsDataFile, ticketsDataFile);
             initializeInMemoryStorage(storage);
+            log.info("InMemoryStorage initialized: users={}, events={}, tickets={}",
+                    storage.getUserStorage().size(), storage.getEventStorage().size(), storage.getTicketStorage().size());
         }
         return bean;
     }

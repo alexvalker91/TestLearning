@@ -10,12 +10,15 @@ import alex.valker91.test_learning.storage.InMemoryStorage;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class InMemoryTicketDao implements TicketDao {
 
     private static final String NAME_SPACE = "ticket";
     private final Map<String, Ticket> storage;
     private long ticketIdCounter = 0;
+    private static final Logger log = LoggerFactory.getLogger(InMemoryTicketDao.class);
 
     public InMemoryTicketDao(InMemoryStorage storage) {
         this.storage = storage.getTicketStorage();
@@ -32,6 +35,7 @@ public class InMemoryTicketDao implements TicketDao {
 
         String key = NAME_SPACE + ":" + ticket.getId();
         storage.put(key, ticket);
+        log.info("bookTicket: id={}, userId={}, eventId={}, place={}, category={}", ticket.getId(), userId, eventId, place, category);
         return ticket;
     }
 
@@ -44,7 +48,9 @@ public class InMemoryTicketDao implements TicketDao {
         int fromIndex = (pageNum - 1) * pageSize;
         int toIndex = Math.min(fromIndex + pageSize, bookedTickets.size());
 
-        return bookedTickets.subList(fromIndex, toIndex);
+        List<Ticket> page = bookedTickets.subList(fromIndex, toIndex);
+        log.debug("getBookedTicketsByUser: userId={}, pageSize={}, pageNum={}, returned={}", user.getId(), pageSize, pageNum, page.size());
+        return page;
     }
 
     @Override
@@ -57,7 +63,9 @@ public class InMemoryTicketDao implements TicketDao {
         int fromIndex = (pageNum - 1) * pageSize;
         int toIndex = Math.min(fromIndex + pageSize, bookedTickets.size());
 
-        return bookedTickets.subList(fromIndex, toIndex);
+        List<Ticket> page = bookedTickets.subList(fromIndex, toIndex);
+        log.debug("getBookedTicketsByEvent: eventId={}, pageSize={}, pageNum={}, returned={}", event.getId(), pageSize, pageNum, page.size());
+        return page;
     }
 
     @Override
@@ -65,8 +73,10 @@ public class InMemoryTicketDao implements TicketDao {
         String key = NAME_SPACE + ":" + ticketId;
         if (storage.containsKey(key)) {
             storage.remove(key);
+            log.info("cancelTicket: id={}, result=cancelled", ticketId);
             return true;
         } else {
+            log.info("cancelTicket: id={}, result=not_found", ticketId);
             return false;
         }
     }

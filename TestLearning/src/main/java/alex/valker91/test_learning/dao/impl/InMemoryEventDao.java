@@ -10,11 +10,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class InMemoryEventDao implements EventDao {
 
     private static final String NAME_SPACE = "event";
     private final Map<String, Event> storage;
+    private static final Logger log = LoggerFactory.getLogger(InMemoryEventDao.class);
 
     public InMemoryEventDao(InMemoryStorage storage) {
         this.storage = storage.getEventStorage();
@@ -23,7 +26,9 @@ public class InMemoryEventDao implements EventDao {
     @Override
     public Event getEventById(long eventId) {
         String key = NAME_SPACE + ":" + eventId;
-        return storage.get(key);
+        Event event = storage.get(key);
+        log.debug("getEventById: id={}, found={}", eventId, event != null);
+        return event;
     }
 
     @Override
@@ -34,7 +39,9 @@ public class InMemoryEventDao implements EventDao {
 
         int fromIndex = (pageNum - 1) * pageSize;
         int toIndex = Math.min(fromIndex + pageSize, eventsByTitle.size());
-        return eventsByTitle.subList(fromIndex, toIndex);
+        List<Event> page = eventsByTitle.subList(fromIndex, toIndex);
+        log.debug("getEventsByTitle: title='{}', pageSize={}, pageNum={}, returned={}", title, pageSize, pageNum, page.size());
+        return page;
     }
 
     @Override
@@ -64,7 +71,9 @@ public class InMemoryEventDao implements EventDao {
 
         int fromIndex = (pageNum - 1) * pageSize;
         int toIndex = Math.min(fromIndex + pageSize, eventsForDay.size());
-        return eventsForDay.subList(fromIndex, toIndex);
+        List<Event> page = eventsForDay.subList(fromIndex, toIndex);
+        log.debug("getEventsForDay: day={}, pageSize={}, pageNum={}, returned={}", day, pageSize, pageNum, page.size());
+        return page;
     }
 
     @Override
@@ -72,6 +81,7 @@ public class InMemoryEventDao implements EventDao {
         long eventId = event.getId();
         String key = NAME_SPACE + ":" + eventId;
         storage.put(key, event);
+        log.info("createEvent: id={}, title={}", eventId, event.getTitle());
         return event;
     }
 
@@ -80,6 +90,7 @@ public class InMemoryEventDao implements EventDao {
         long eventId = event.getId();
         String key = NAME_SPACE + ":" + eventId;
         storage.put(key, event);
+        log.info("updateEvent: id={}, title={}", eventId, event.getTitle());
         return event;
     }
 
@@ -88,8 +99,10 @@ public class InMemoryEventDao implements EventDao {
         String key = NAME_SPACE + ":" + eventId;
         if (storage.containsKey(key)) {
             storage.remove(key);
+            log.info("deleteEvent: id={}, result=deleted", eventId);
             return true;
         } else {
+            log.info("deleteEvent: id={}, result=not_found", eventId);
             return false;
         }
     }
